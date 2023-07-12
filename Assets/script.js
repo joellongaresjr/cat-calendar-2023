@@ -26,11 +26,12 @@ $(document).ready(function () {
   // current hour in 24-hour time?
   function colorHour() {
     var currentHour = dayjs().hour();
-    console.log(currentHour, "currentHour")
+    // console.log(currentHour, "currentHour")
     $(".time-block").each(function(){
       var timeBlock = $(this).attr("id").split("-")[1]
       var timeBlockHour = parseInt(timeBlock)
-      console.log(timeBlockHour, "timeBlockHour")
+      // console.log(timeBlockHour, "timeBlockHour")
+      $(this).removeClass("past present future")
       if (timeBlockHour < currentHour) {
         $(this).addClass("past");
       } else if (timeBlockHour === currentHour) {
@@ -40,6 +41,8 @@ $(document).ready(function () {
       }
     })
   
+
+   
     // set interval for function colorhour and setting a time 
     // handling removing classes
     // for (var i = 9; i <= 17; i++) var timeBlockEl = $("#hour-" + i);
@@ -56,6 +59,14 @@ $(document).ready(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+
+$(".description").each(function() {
+  var timeBlock = $(this).parent().attr("id");
+  var savedData = localStorage.getItem(timeBlock);
+  if (savedData) {
+    $(this).val(savedData);
+  }
+})
 
   // // // add code to get any users inputs that was saved in local storage
   // var nineAm = localStorage.getItem("hour-9");
@@ -84,6 +95,10 @@ $(document).ready(function () {
 
   // var fivePm = localstorage.getItem("hour-17");
   // $("#descripition17").val(fivePm);
+
+  //conditional statements
+  //set intervals 
+  //
   // create for loop all different timeblocks (local.stroage.getitem)
   // if item is not null then set textcontent to whatever current content it is (conditionally statement)
 
@@ -91,7 +106,8 @@ $(document).ready(function () {
   var currentDate = dayjs().format("MM-DD-YYYY");
   $("#currentDay").text(currentDate);
 
-  colorHour()
+  colorHour();
+  setInterval(colorHour, 6000)
 });
 
 // // What is needed
